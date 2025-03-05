@@ -1,1 +1,41 @@
-<p>login works!</p>
+<body>
+
+    <div class="login-container">
+    <main class="form-signin w-100 m-auto">
+        <form [formGroup]="loginform" >
+        <img class="mb-4" src="login.png" alt="IIS Logo" width="120px" height="75">
+        <h1 class="h3 mb-3 fw-normal text-center">Iniciar sesión</h1>
+        <div class="form-floating mb-3 position-relative">
+            <input type="email" class="form-control" id="floatingInput" placeholder="nombre@ejemplo.com"
+            formControlName="email" required>
+            <label for="floatingInput">Correo Electrónico</label>
+            <div *ngIf="loginform.get('email')?.invalid && loginform.get('email')?.touched" class="text-black">
+            El correo electrónico es requerido.
+            </div>
+        </div>
+        <div class="form-floating mb-3 position-relative">
+            <input [type]="verpassword ? 'text' : 'password'" class="form-control" id="floatingPassword"
+            placeholder="Password" formControlName="password" required>
+            <label for="floatingPassword">Password</label>
+            <!-- Icono de ojo para mostrar/ocultar contraseña -->
+            <i *ngIf="loginform.get('password')?.value?.length > 0" class="fa"
+            [ngClass]="verpassword ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePasswordVisibility()"
+            style="position: absolute; top: 50%; right: 15px; transform: translateY(-50%); cursor: pointer;"></i>
+            <div *ngIf="loginform.get('password')?.invalid && loginform.get('password')?.touched" class="text-black">
+            </div>
+        </div>
+        <button type="submit" class="w-100 btn btn-lg btn-primary" [disabled]="loginform.invalid || isloading">
+            <span *ngIf="!isloading">
+            Iniciar Sesión
+            </span>
+            <span *ngIf="isloading">
+            <i class="fa fa-spinner fa-spin"></i> Cargando...
+            </span>
+            </button>
+          <div *ngIf="errorMessage" class="mt-3 text-center text-black">
+            {{ errorMessage }}
+        </div>
+        </form>
+    </main>
+    </div>
+</body>
