@@ -45,4 +45,10 @@ export class AuthService {
         })
       );
   }
+
+
+  isAuthenticated(): Boolean{
+    const token = localStorage.getItem('auth_token');
+    return !!token;
+  }
 }
